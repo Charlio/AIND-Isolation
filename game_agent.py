@@ -219,9 +219,9 @@ class MinimaxPlayer(IsolationPlayer):
         for move in game.get_legal_moves():
             depth_left = depth
             v = self.min_value(game.forecast_move(move), depth_left)
-        if v > max_value:
-            max_move = move
-            max_value = v
+            if v > max_value:
+                max_move = move
+                max_value = v
         return max_move
         
     
@@ -243,7 +243,7 @@ class MinimaxPlayer(IsolationPlayer):
             raise SearchTimeout()
             
         if self.terminal_test(game):
-            return float("inf")            
+            return 1      
          
         else:
             v = float("inf")
@@ -264,7 +264,7 @@ class MinimaxPlayer(IsolationPlayer):
             raise SearchTimeout()
             
         if self.terminal_test(game):
-            return float("-inf")
+            return -1
             
         else:
             v = float("-inf")
