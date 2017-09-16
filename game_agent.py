@@ -35,10 +35,48 @@ def custom_score(game, player):
         The heuristic value of the current game state to the specified player.
     """
     # TODO: finish this function!
-    raise NotImplementedError
 
 
 def custom_score_2(game, player):
+    """Calculate the heuristic value of a game state from the point of view
+    of the given player.
+
+    Note: this function should be called from within a Player instance as
+    `self.score()` -- you should not need to call this function directly.
+
+    Parameters
+    ----------
+    game : `isolation.Board`
+        An instance of `isolation.Board` encoding the current state of the
+        game (e.g., player locations and blocked cells).
+
+    player : object
+        A player instance in the current game (i.e., an object corresponding to
+        one of the player objects `game.__player_1__` or `game.__player_2__`.)
+
+    Returns
+    -------
+    float
+        The heuristic value of the current game state to the specified player.
+    """
+    # TODO: finish this function!
+    w, h = game.width / 2., game.height / 2.
+    y, x = game.get_player_location(player)
+    center_dist = float((h - y)**2 + (w - x)**2)**0.5
+    
+    own_moves = len(game.get_legal_moves(player))
+    opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
+    moves_diff = float(own_moves - opp_moves)
+    
+    player_pos = game.get_player_location(player)
+    blank_spaces_nearby = [(player_pos[0]+dx, player_pos[1]+dy) for dx in range(1, 3)for dy in range(1, 3)]
+    blank_spaces = game.get_blank_spaces()
+    blank_nearby = sum([1 for pos in blank_spaces_nearby if pos in blank_spaces])
+      
+    return moves_diff - center_dist + blank_nearby
+
+
+def custom_score_3(game, player):
     """Calculate the heuristic value of a game state from the point of view
     of the given player.
 
@@ -67,41 +105,6 @@ def custom_score_2(game, player):
     opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
     
     return float(own_moves - opp_moves) - float((h - y)**2 + (w - x)**2)
-
-
-def custom_score_3(game, player):
-    """Calculate the heuristic value of a game state from the point of view
-    of the given player.
-
-    Note: this function should be called from within a Player instance as
-    `self.score()` -- you should not need to call this function directly.
-
-    Parameters
-    ----------
-    game : `isolation.Board`
-        An instance of `isolation.Board` encoding the current state of the
-        game (e.g., player locations and blocked cells).
-
-    player : object
-        A player instance in the current game (i.e., an object corresponding to
-        one of the player objects `game.__player_1__` or `game.__player_2__`.)
-
-    Returns
-    -------
-    float
-        The heuristic value of the current game state to the specified player.
-    """
-    # TODO: finish this function!
-    good_inc = [(2, 0), (0, 2), (-2, 0), (0, -2), (1, 1), (-1, 1), (1, -1), (-1, -1)]
-    player_pos = game.get_player_location(player)
-    good_pos = [(player_pos[0]+dx, player_pos[1]+dy) for dx, dy in good_inc]
-    blank_spaces = game.get_blank_spaces()
-    good_points = sum([1 for pos in good_pos if pos in blank_spaces])
-        
-    own_moves = len(game.get_legal_moves(player))
-    opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
-    
-    return float(own_moves - opp_moves) + good_points
 
 
 
@@ -336,6 +339,10 @@ class AlphaBetaPlayer(IsolationPlayer):
         # Initialize the best move so that this function returns something
         # in case the search fails due to timeout
         best_move = (-1, -1)
+        from random import randint
+        legal_moves = game.get_legal_moves()
+        if legal_moves:
+            best_move = legal_moves[randint(0, len(legal_moves) - 1)]
         
         # Iterative deepening
         depth = 1
