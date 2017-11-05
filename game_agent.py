@@ -368,8 +368,9 @@ class AlphaBetaPlayer(IsolationPlayer):
         best_move = (-1, -1)
         from random import randint
         legal_moves = game.get_legal_moves()
+        random_move = (-1, -1)
         if legal_moves:
-            best_move = legal_moves[randint(0, len(legal_moves) - 1)]
+            random_move = legal_moves[randint(0, len(legal_moves) - 1)]
         
         # Iterative deepening
         depth = 1
@@ -385,7 +386,11 @@ class AlphaBetaPlayer(IsolationPlayer):
                 # Handle any actions required after timeout as needed
 
                 # Return the best move from the last completed search iteration
-                return best_move
+                if best_move == None or best_move == (-1, -1):
+                    return random_move
+                else:
+                    return best_move
+                
         
        
 
