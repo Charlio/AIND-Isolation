@@ -54,7 +54,7 @@
 %%% The "real" document content comes below...
 
 \title{Review of the AlphaGo Article}
-\author{Charlio Xu}
+%\author{}
 %\date{} % Activate to display a given date or no date (if empty),
          % otherwise the current date is printed 
 
@@ -62,36 +62,43 @@
 \maketitle
 
 \section{Introduction}
-AlphaGo article link
+The AlphaGo agent made big breakthrough in Artificial Intelligence recently by beating top Go players very stably. This remarkable agent is built upon the most recent start-of-art techniques in deep learning. We are going to give a short review on AlphaGo in this report.
 
 
 \section{Goals}
 
-improve winning rate over existing game agents
+Two common tasks for a game agent are to select moves and to evaluate board positions. The paper is aimed to make improvements on these two important tasks. It introduces convolutional neural networks to study the patterns in a value networks to evaluate board positions and policy networks to select moves.
 
 
 \section{Techniques Introduced}
 
-* convolutional neural networks: alternating convolutional layers and rectifier nonlinearization and final softmax 
+Main techniques used in the agent include the following:
 
-* policy network for move selections: generate a distribution from softmax
+Convolutional Neural Networks. It regards the $19$x$19$ board as an input image to feed into convolutional layers to construct a representation of the posotion. These neural networks are used to reduce the effective depth and breadth of the search tree. The positions are evaluated using a value network while actions are sampled using a policy network. 
 
-* value network for evaluation functions
+Policy Networks. The policy networks are trained in two stages. The first stage is the supervised learning with previous human experts' choices of moves. the second stage is the reinforcement learning by playing the game against itself. 
 
-* supervised learning from human expert moves
+Value Networks. These are used to evaluate positions. They are trained with reinforcement learning with a generated self-play data set.
 
-* reinforcement learning from self-plays
-
-* Monte-Carlo Tree Search
+Search. Searching with the policy and value networks is done using Monte-Carlo Tree Search. The tree search is efficiently combined with the neural networks by an asynchronous multi-threaded search.
 
 
 \section{Results}
 
-* against existing game agents
+Playing strength of AlphaGo is evaluated with other existing programs including Crazy Stone, Zen, Pachi and Fuego. AlphaGo consistently beat these programs. 
 
-* against the human player
+The most significant success of AlphaGo is its play against human top experts:
 
-* SL vs RL
+AlphaGo Fan won $5:0$ agains Fan Hui.
+
+AlphaGo Lee won $4:1$ agains Lee Sedol.
+
+AlphaGo Master won $60:0$ against professional players.
+
+AlphaGo Zero won $100:0$ against AlphaGo Lee and $89:11$ against AlphaGo Master.
+
+In May 2017, AlphaGo won $3:0$ against the current world No.$1$ ranking player Ke Jie.
+
 
 
 \end{document}
