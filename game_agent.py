@@ -40,23 +40,39 @@ def custom_score(game, player):
         return float("-inf")
 
     if game.is_winner(player):
-        return float("inf")
-    
-    w, h = game.width / 2., game.height / 2.
-    y, x = game.get_player_location(player)
-    center_dist = float((h - y)**2 + (w - x)**2)**0.5
+        return float("inf")   
     
     own_moves = len(game.get_legal_moves(player))
     opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
-    moves_diff = float(own_moves - opp_moves)
     
-    player_pos = game.get_player_location(player)
-    blank_spaces_nearby = [(player_pos[0]+dx, player_pos[1]+dy) for dx in range(1, 3)for dy in range(1, 3)]
-    blank_spaces = game.get_blank_spaces()
-    blank_nearby = sum([1 for pos in blank_spaces_nearby if pos in blank_spaces])
-      
-    return moves_diff - center_dist + blank_nearby
-
+    if own_moves != opp_moves:
+        return float(own_moves - opp_moves)
+        
+    else:
+        w, h = game.width / 2., game.height / 2.
+        y1, x1 = game.get_player_location(player)
+        y2, x2 = game.get_player_location(game.get_opponent(player))
+        dist1 = float((h - y1)**2 + (w - x1)**2)**0.5
+        dist2 = float((h - y2)**2 + (w - x2)**2)**0.5
+        if dist1 != dist2:
+            return dist2 - dist1
+        else:
+            player1_pos = game.get_player_location(player)
+            blank1_spaces_nearby = [(player_pos[0]+dx, player_pos[1]+dy) for dx in range(1, 3)for dy in range(1, 3)]
+            blank1_spaces = game.get_blank_spaces()
+            blank1_nearby = sum([1 for pos in blank_spaces_nearby if pos in blank_spaces])
+            
+            player2_pos = game.get_player_location(game.get_opponent(player))
+            blank2_spaces_nearby = [(player2_pos[0]+dx, player2_pos[1]+dy) for dx in range(1, 3)for dy in range(1, 3)]
+            blank2_spaces = game.get_blank_spaces()
+            blank2_nearby = sum([1 for pos in blank2_spaces_nearby if pos in blank2_spaces])
+            
+            if blank1_nearby != blank2_nearby:
+                return blank1_nearby - blank2_nearby
+                
+            else:
+                dist_players = float((player1_pos[0]-player2_pos[0])**2+(player1_pos[1]-player2_pos[1])**2)**0.5
+                return dist_players
 
 def custom_score_2(game, player):
     """Calculate the heuristic value of a game state from the point of view
@@ -81,22 +97,39 @@ def custom_score_2(game, player):
         The heuristic value of the current game state to the specified player.
     """
     # TODO: finish this function!
-    
+   
     if game.is_loser(player):
         return float("-inf")
 
     if game.is_winner(player):
-        return float("inf")
-    
-    w, h = game.width / 2., game.height / 2.
-    y, x = game.get_player_location(player)
-    center_dist = float((h - y)**2 + (w - x)**2)**0.5
+        return float("inf")   
     
     own_moves = len(game.get_legal_moves(player))
     opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
-    moves_diff = float(own_moves - opp_moves)
-      
-    return moves_diff - center_dist
+    
+    if own_moves != opp_moves:
+        return float(own_moves - opp_moves)
+        
+    else:
+        w, h = game.width / 2., game.height / 2.
+        y1, x1 = game.get_player_location(player)
+        y2, x2 = game.get_player_location(game.get_opponent(player))
+        dist1 = float((h - y1)**2 + (w - x1)**2)**0.5
+        dist2 = float((h - y2)**2 + (w - x2)**2)**0.5
+        if dist1 != dist2:
+            return dist2 - dist1
+        else:
+            player1_pos = game.get_player_location(player)
+            blank1_spaces_nearby = [(player_pos[0]+dx, player_pos[1]+dy) for dx in range(1, 3)for dy in range(1, 3)]
+            blank1_spaces = game.get_blank_spaces()
+            blank1_nearby = sum([1 for pos in blank_spaces_nearby if pos in blank_spaces])
+            
+            player2_pos = game.get_player_location(game.get_opponent(player))
+            blank2_spaces_nearby = [(player2_pos[0]+dx, player2_pos[1]+dy) for dx in range(1, 3)for dy in range(1, 3)]
+            blank2_spaces = game.get_blank_spaces()
+            blank2_nearby = sum([1 for pos in blank2_spaces_nearby if pos in blank2_spaces])
+            
+            return blank1_nearby - blank2_nearby
 
 
 def custom_score_3(game, player):
@@ -128,13 +161,21 @@ def custom_score_3(game, player):
 
     if game.is_winner(player):
         return float("inf")
-    
-    w, h = game.width / 2., game.height / 2.
-    y, x = game.get_player_location(player)
+       
     own_moves = len(game.get_legal_moves(player))
     opp_moves = len(game.get_legal_moves(game.get_opponent(player)))
     
-    return float(own_moves - opp_moves) - float((h - y)**2 + (w - x)**2)**0.5
+    if own_moves != opp_moves:
+        return float(own_moves - opp_moves)
+        
+    else:
+        w, h = game.width / 2., game.height / 2.
+        y1, x1 = game.get_player_location(player)
+        y2, x2 = game.get_player_location(game.get_opponent(player))
+        dist1 = float((h - y1)**2 + (w - x1)**2)**0.5
+        dist2 = float((h - y2)**2 + (w - x2)**2)**0.5
+        
+    return dist2 - dist1
 
 
 
