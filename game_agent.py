@@ -13,22 +13,17 @@ class SearchTimeout(Exception):
 def custom_score(game, player):
     """Calculate the heuristic value of a game state from the point of view
     of the given player.
-
     This should be the best heuristic function for your project submission.
-
     Note: this function should be called from within a Player instance as
     `self.score()` -- you should not need to call this function directly.
-
     Parameters
     ----------
     game : `isolation.Board`
         An instance of `isolation.Board` encoding the current state of the
         game (e.g., player locations and blocked cells).
-
     player : object
         A player instance in the current game (i.e., an object corresponding to
         one of the player objects `game.__player_1__` or `game.__player_2__`.)
-
     Returns
     -------
     float
@@ -58,12 +53,12 @@ def custom_score(game, player):
             return dist2 - dist1
         else:
             player1_pos = game.get_player_location(player)
-            blank1_spaces_nearby = [(player_pos[0]+dx, player_pos[1]+dy) for dx in range(1, 3)for dy in range(1, 3)]
+            blank1_spaces_nearby = [(player1_pos[0]+dx, player1_pos[1]+dy) for dx in range(-2, 3)for dy in range(-2, 3)]
             blank1_spaces = game.get_blank_spaces()
-            blank1_nearby = sum([1 for pos in blank_spaces_nearby if pos in blank_spaces])
+            blank1_nearby = sum([1 for pos in blank1_spaces_nearby if pos in blank1_spaces])
             
             player2_pos = game.get_player_location(game.get_opponent(player))
-            blank2_spaces_nearby = [(player2_pos[0]+dx, player2_pos[1]+dy) for dx in range(1, 3)for dy in range(1, 3)]
+            blank2_spaces_nearby = [(player2_pos[0]+dx, player2_pos[1]+dy) for dx in range(-2, 3)for dy in range(-2, 3)]
             blank2_spaces = game.get_blank_spaces()
             blank2_nearby = sum([1 for pos in blank2_spaces_nearby if pos in blank2_spaces])
             
@@ -77,20 +72,16 @@ def custom_score(game, player):
 def custom_score_2(game, player):
     """Calculate the heuristic value of a game state from the point of view
     of the given player.
-
     Note: this function should be called from within a Player instance as
     `self.score()` -- you should not need to call this function directly.
-
     Parameters
     ----------
     game : `isolation.Board`
         An instance of `isolation.Board` encoding the current state of the
         game (e.g., player locations and blocked cells).
-
     player : object
         A player instance in the current game (i.e., an object corresponding to
         one of the player objects `game.__player_1__` or `game.__player_2__`.)
-
     Returns
     -------
     float
@@ -120,12 +111,12 @@ def custom_score_2(game, player):
             return dist2 - dist1
         else:
             player1_pos = game.get_player_location(player)
-            blank1_spaces_nearby = [(player_pos[0]+dx, player_pos[1]+dy) for dx in range(1, 3)for dy in range(1, 3)]
+            blank1_spaces_nearby = [(player1_pos[0]+dx, player1_pos[1]+dy) for dx in range(-2, 3)for dy in range(-2, 3)]
             blank1_spaces = game.get_blank_spaces()
-            blank1_nearby = sum([1 for pos in blank_spaces_nearby if pos in blank_spaces])
+            blank1_nearby = sum([1 for pos in blank1_spaces_nearby if pos in blank1_spaces])
             
             player2_pos = game.get_player_location(game.get_opponent(player))
-            blank2_spaces_nearby = [(player2_pos[0]+dx, player2_pos[1]+dy) for dx in range(1, 3)for dy in range(1, 3)]
+            blank2_spaces_nearby = [(player2_pos[0]+dx, player2_pos[1]+dy) for dx in range(-2, 3)for dy in range(-2, 3)]
             blank2_spaces = game.get_blank_spaces()
             blank2_nearby = sum([1 for pos in blank2_spaces_nearby if pos in blank2_spaces])
             
@@ -135,20 +126,16 @@ def custom_score_2(game, player):
 def custom_score_3(game, player):
     """Calculate the heuristic value of a game state from the point of view
     of the given player.
-
     Note: this function should be called from within a Player instance as
     `self.score()` -- you should not need to call this function directly.
-
     Parameters
     ----------
     game : `isolation.Board`
         An instance of `isolation.Board` encoding the current state of the
         game (e.g., player locations and blocked cells).
-
     player : object
         A player instance in the current game (i.e., an object corresponding to
         one of the player objects `game.__player_1__` or `game.__player_2__`.)
-
     Returns
     -------
     float
